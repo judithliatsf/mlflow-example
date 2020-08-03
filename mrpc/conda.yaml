@@ -1,0 +1,6 @@
+name: mrpc
+channels:
+  - defaults
+dependencies:
+  - pip:
+    - -r file:runtime_requirements.txt

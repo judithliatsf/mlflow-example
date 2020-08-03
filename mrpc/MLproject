@@ -1,0 +1,9 @@
+name: mrpc
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      layer_name: {type: string, default: "bert-base-uncased"}
+    command: "python train.py --layer_name={layer_name}"
