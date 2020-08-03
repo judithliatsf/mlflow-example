@@ -1,1 +1,2 @@
 transformers
+tensorflow-gpu==2.2.0
