@@ -4,10 +4,12 @@
     "spark_version": "7.1.x-gpu-ml-scala2.12",
     "node_type_id": "g4dn.xlarge",
     "aws_attributes": {
-      "first_on_demand": 0,
-      "availability": "SPOT"
+      "first_on_demand": 1,
+      "availability": "SPOT_WITH_FALLBACK",
+      "zone_id": "us-west-2b",
+      "spot_bid_price_percent": 100
     },
-    "num_workers": 1
+    "num_workers": 1  
   },
   "libraries": [
 
