@@ -5,5 +5,6 @@ conda_env: conda.yaml
 entry_points:
   main:
     parameters:
-      layer_name: {type: string, default: "bert-base-uncased"}
-    command: "python train.py --layer_name={layer_name}"
+      epochs: {type: int, default: 1}
+      train_steps: {type: int, default: 10}
+    command: "python train_hub.py --epochs={epochs} --train_steps={train_steps}"

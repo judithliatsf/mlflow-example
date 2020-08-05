@@ -1,3 +1,5 @@
-transformers
+transformers==3.0.2
 tensorflow-gpu==2.2.0
-mlflow
+mlflow==1.10.0
+tensorflow-datasets
+tensorflow-hub==0.8.0

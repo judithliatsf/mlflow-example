@@ -2,5 +2,7 @@ name: mrpc
 channels:
   - defaults
 dependencies:
+  - scikit-learn=0.22.1
+  - pip
   - pip:
     - -r file:runtime_requirements.txt
