@@ -4,6 +4,8 @@ import mlflow
 import mlflow.tensorflow
 import argparse
 import sys
+from mrpc.model import build_model
+from mrpc.data import data_loader
 
 # data parameters
 tfds_task_name = "glue/mrpc"
@@ -37,12 +39,6 @@ parser.add_argument('--train_steps', default=10, type=int,
 
 def main(argv):
     with mlflow.start_run():
-        # step 1: build and install package
-        mlflow.run(".", "build")
-        from mrpc.model import build_model
-        from mrpc.data import data_loader
-
-        # step 2: main
         # load data
         tokenizer = transformers.BertTokenizer.from_pretrained(
             'bert-base-uncased')

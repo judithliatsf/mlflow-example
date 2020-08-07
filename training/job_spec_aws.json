@@ -2,14 +2,16 @@
   "run_name": "first mrpc run",
   "new_cluster": {
     "spark_version": "7.1.x-gpu-ml-scala2.12",
-    "node_type_id": "g4dn.xlarge",
+    "node_type_id": "p2.xlarge",
     "aws_attributes": {
       "first_on_demand": 1,
       "availability": "SPOT_WITH_FALLBACK",
       "zone_id": "us-west-2b",
-      "spot_bid_price_percent": 100
+      "spot_bid_price_percent": 100,
+      "ebs_volume_count": 1,
+      "ebs_volume_size": 32
     },
-    "num_workers": 1  
+    "num_workers": 0
   },
   "libraries": [
 

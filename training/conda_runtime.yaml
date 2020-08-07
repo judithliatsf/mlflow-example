@@ -6,3 +6,4 @@ dependencies:
   - pip
   - pip:
     - -r file:requirements_runtime.txt
+    - mrpc-1.0-py3-none-any.whl
