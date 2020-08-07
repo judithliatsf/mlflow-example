@@ -21,13 +21,10 @@ epsilon = 1e-08
 clipnorm = 1.0
 train_steps = 115
 
-# Train and evaluate using tf.keras.Model.fit()
-
 optimizer = tf.keras.optimizers.Adam(
     learning_rate=learning_rate, epsilon=epsilon, clipnorm=clipnorm)
 loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 metric = tf.keras.metrics.SparseCategoricalAccuracy('accuracy')
-tfhub_model.compile(optimizer=optimizer, loss=loss, metrics=[metric])
 
 # Enable auto-logging to MLflow to capture TensorBoard metrics.
 mlflow.tensorflow.autolog(every_n_iter=5)
@@ -61,7 +58,8 @@ def main(argv):
 
         args = parser.parse_args(argv[1:])
 
-        # training
+        # Train and evaluate using tf.keras.Model.fit()
+        tfhub_model.compile(optimizer=optimizer, loss=loss, metrics=[metric])
         tfhub_history = tfhub_model.fit(train_ds, epochs=args.epochs, steps_per_epoch=args.train_steps,
                                         validation_data=valid_ds, validation_steps=7)
 
