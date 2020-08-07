@@ -1,6 +1,6 @@
 import tensorflow_hub as hub
 import tensorflow as tf
-from model import build_model
+from mrpc.model import build_model
 
 class BertLayerTest(tf.test.TestCase):
     @classmethod
@@ -29,17 +29,7 @@ class BertLayerTest(tf.test.TestCase):
                                                      self.features["attention_mask"],
                                                      self.features["token_type_ids"]])
         self.assertAllEqual(pred.shape, [2, 2])
-    
-    def test_data_loader(self):
-        from data import data_loader
-        import transformers
 
-        tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased')
-        _, _, test_ds = data_loader(tfds_task_name="glue/mrpc", tokenizer=tokenizer, max_seq_length=self.max_seq_length)
-
-        features, labels = next(iter(test_ds))
-        pred = self.model(features)
-        self.assertAllEqual(pred.shape, [32, 2])
 
 
 

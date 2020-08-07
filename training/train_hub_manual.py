@@ -1,5 +1,3 @@
-from model import build_model
-from data import data_loader
 import transformers
 import tensorflow as tf
 import mlflow
@@ -24,18 +22,6 @@ epsilon = 1e-08
 clipnorm = 1.0
 train_steps = 115
 
-# load data
-tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased')
-train_ds, valid_ds, test_ds = data_loader(
-    tfds_task_name=tfds_task_name, tokenizer=tokenizer, max_seq_length=max_seq_length)
-
-# build model
-tfhub_model = build_model(tf_hub_path=tf_hub_path,
-                          max_seq_length=max_seq_length,
-                          dropout_prob=dropout_prob,
-                          num_labels=num_labels,
-                          initializer_range=initializer_range)
-
 # Train and evaluate using tf.keras.Model.fit()
 
 optimizer = tf.keras.optimizers.Adam(
@@ -49,8 +35,6 @@ eval_loss = tf.keras.metrics.Mean("eval_loss", dtype=tf.float32)
 eval_accuracy = tf.keras.metrics.SparseCategoricalAccuracy('eval_accuracy')
 
 # Define training and testing functions
-
-
 def train_step(model, optimizer, x_train, y_train):
     with tf.GradientTape() as tape:
         logits = model(x_train, training=True)
@@ -81,6 +65,24 @@ parser.add_argument('--train_steps', default=10, type=int,
 
 def main(argv):
     with mlflow.start_run(run_name="training"):
+        # step 1: build and install package
+        mlflow.run(".", "build")
+        from mrpc.model import build_model
+        from mrpc.data import data_loader
+        
+        # step 2: main
+        # load data
+        tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased')
+        train_ds, valid_ds, test_ds = data_loader(
+            tfds_task_name=tfds_task_name, tokenizer=tokenizer, max_seq_length=max_seq_length)
+
+        # build model
+        tfhub_model = build_model(tf_hub_path=tf_hub_path,
+                                max_seq_length=max_seq_length,
+                                dropout_prob=dropout_prob,
+                                num_labels=num_labels,
+                                initializer_range=initializer_range)
+
         args = parser.parse_args(argv[1:])
         mlflow.log_params({
             "dropout_prob": dropout_prob,

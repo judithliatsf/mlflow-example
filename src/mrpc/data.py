@@ -1,4 +1,3 @@
-from enum import Enum
 import tensorflow_datasets as tfds
 import transformers
 from transformers import glue_convert_examples_to_features

@@ -1,0 +1,13 @@
+name: mrpc
+
+conda_env: conda_runtime.yaml
+
+entry_points:
+  build:
+    command: "python setup.py install"
+
+  main:
+    parameters:
+      epochs: {type: int, default: 1}
+      train_steps: {type: int, default: 10}
+    command: "python training/train_hub.py --epochs={epochs} --train_steps={train_steps}"
